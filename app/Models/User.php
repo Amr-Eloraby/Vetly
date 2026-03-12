@@ -23,8 +23,7 @@ class User extends Authenticatable
         'phone',
         'password',
         'google_id',
-        
-        
+        'is_fake_phone',
     ];
 
     /**

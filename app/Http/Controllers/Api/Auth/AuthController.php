@@ -64,20 +64,19 @@ class AuthController extends Controller
             return ApiResponse::sendResponse(401,'Invalid Google Token',);
         }
 
-        $randomEgyptianPhone = '01' . rand(0, 1) . rand(0, 9) . str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+        $randomEgyptianPhone =rand(0, 99999999);
         $user = User::updateOrCreate(
             ['email' => $payload['email']],
             [
                 'name' => $payload['name'],
                 'google_id' => $payload['sub'],
                 'phone' => $payload['phone'] ?? "$randomEgyptianPhone",
-                'password' => Hash::make(Str::random(16))
-            ]
-            
+                'password' => Hash::make(Str::random(16)),
+                'is_fake_phone' => true ,
+            ]    
             
         ); 
 
-        $data['email']=$user['email'];
         $data['name']=$user['name'];
         $data['token']=$user->createToken('api')->plainTextToken;
 

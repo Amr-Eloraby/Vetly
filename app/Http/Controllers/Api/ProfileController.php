@@ -18,12 +18,16 @@ class ProfileController extends Controller
         $data['email'] = $user->email;
         $data['image'] = ImageService::url($user->image);
         if ($user['google_id']){
-            $data['phone'] = null;
+            if ($user['is_fake_phone']==1){       
+                $data['phone'] = null;
+            }else{
+                $data['phone'] = $user->phone;
+            }
         }
         
         return ApiResponse::sendResponse(200, 'User profile retrieved successfully', $data);
     }
-
+    
     // Edit user profile
     public function editProfile(EditProfileRequest $request)
     {
@@ -38,7 +42,12 @@ class ProfileController extends Controller
             $user->email = $request->email;
         }
         if ($request->has('phone')) {
-            $user->phone = $request->phone;
+            if($user['is_fake_phone']==1){
+                $user->phone = $request->phone;
+                $user->is_fake_phone = 0;
+            }else{
+                $user->phone = $request->phone;
+            }
         }
         if ($request->hasFile('image')) {
             if ($user->image) {
@@ -47,7 +56,6 @@ class ProfileController extends Controller
             $path = ImageService::upload($request->file('image'), 'users');
             $user->image = $path;
         }
-
 
         $user->save();
 
