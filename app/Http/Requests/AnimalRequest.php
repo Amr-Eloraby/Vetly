@@ -24,7 +24,7 @@ class AnimalRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'type' => 'required|in:Dog,Cat,Chicken,Pigeon,Horse,Cow',
-            'age' => 'required|in:1 W → 4 W,1 M → 3 M,3 M → 6 M,6 M → 1 Y,1 Y → 2 Y',
+            'birth_date' => 'required|date',
         ];
     }
 }

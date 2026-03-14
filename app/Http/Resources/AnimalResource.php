@@ -18,7 +18,7 @@ class AnimalResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type,
-            'age' => $this->age,
+            'birth_date' => $this->birth_date,
         ];
     }
 }
