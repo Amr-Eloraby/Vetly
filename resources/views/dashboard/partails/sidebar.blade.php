@@ -129,6 +129,24 @@
                 </li>  
               </ul>
             </li>
+            <li class="menu-item @yield('Vaccination')">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-copy"></i>
+                <div data-i18n="Extended UI">Vaccinations</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{route('vaccination.create')}}" class="menu-link">
+                    <div data-i18n="Perfect Scrollbar">Create</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{route('vaccination.show')}}" class="menu-link">
+                    <div data-i18n="Text Divider">Show</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
             <li class="menu-item @yield('Booking')">
               <a href="{{ route('booking.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>

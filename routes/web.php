@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\ClinicController;
 use App\Http\Controllers\Web\BookingController;
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\OrdersController;
+use App\Http\Controllers\Web\VaccinationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,4 +61,13 @@ Route::middleware('admin')->controller(OrdersController::class)->group(function 
     Route::post('/dashboard/orders/confirm/{id}', 'confirmOrder')->name('orders.confirm');
     Route::post('/dashboard/orders/ship/{id}', 'shipOrder')->name('orders.ship');
 });
+
+Route::middleware('admin')->controller(VaccinationController::class)->group(function () {
+    Route::get('/dashboard/vaccination/create', 'createVaccination')->name('vaccination.create');
+    Route::post('/dashboard/vaccination/store', 'storeNewVaccination')->name('vaccination.store');
+    Route::get('/dashboard/vaccination/show', 'showVaccination')->name('vaccination.show');
+    Route::get('/dashboard/vaccination/edit/{id}', 'editVaccination')->name('vaccination.edit');
+    Route::PUT('/dashboard/vaccination/update/{id}', 'updateVaccination')->name('vaccination.update');  
+    Route::delete('/dashboard/vaccination/delete/{id}', 'deleteVaccination')->name('vaccination.delete');
+});    
 

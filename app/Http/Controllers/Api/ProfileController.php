@@ -23,6 +23,10 @@ class ProfileController extends Controller
             }else{
                 $data['phone'] = $user->phone;
             }
+        }elseif($user['is_fake_phone']==1){
+            $data['phone'] = null;
+        }else{
+            $data['phone'] = $user->phone;
         }
         
         return ApiResponse::sendResponse(200, 'User profile retrieved successfully', $data);

@@ -19,3 +19,15 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+      let toggle = document.getElementById('repeatToggle');
+      let field = document.getElementById('repeatField');
+      toggle.addEventListener('change', function () {
+
+          if (this.checked) {
+              field.style.display = 'block';
+          } else {
+              field.style.display = 'none';
+          }
+      });
+    </script>
