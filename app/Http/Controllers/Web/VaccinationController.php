@@ -25,7 +25,7 @@ class VaccinationController extends Controller
 
     public function showVaccination()
     {
-        $vaccinations = Vaccination::paginate(5);
+        $vaccinations = Vaccination::paginate(15);
         return view('dashboard.vaccination.show', compact('vaccinations'));
     }
 

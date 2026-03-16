@@ -18,10 +18,9 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Vaccine Name</th>
               <th>Animal Type</th>
-              <th>Start Age (weeks)</th>
-              <th>End Age (weeks)</th>
+              <th>Age (weeks)</th>
               <th>Is Repeatable</th>
               <th>Repeat Every (weeks)</th>
               <th>Actions</th>
@@ -33,8 +32,7 @@
                 <tr>
                   <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $vaccination->name }}</strong></td>
                   <td>{{ $vaccination->animal_type }}</td>
-                  <td>{{ $vaccination->start_age_weeks }}</td>
-                  <td>{{ $vaccination->end_age_weeks }}</td>
+                  <td>{{ $vaccination->start_age_weeks }} - {{ $vaccination->end_age_weeks }}</td>
                   <td>
                     @if ($vaccination->is_repeatable == 1)
                       <span class="badge bg-label-success me-1">Yes</span>
@@ -73,6 +71,7 @@
         </table>
       </div>
     </div>
+    {{ $vaccinations->render('pagination::bootstrap-5') }}
     <!--/ Basic Bootstrap Table -->
     <hr class="my-5" />
 </div>

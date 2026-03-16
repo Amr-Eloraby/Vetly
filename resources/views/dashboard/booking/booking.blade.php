@@ -69,6 +69,7 @@
         </table>
       </div>
     </div>
+    {{ $bookings->render('pagination::bootstrap-5') }}
     <!--/ Basic Bootstrap Table -->
     <hr class="my-5" />
 </div>

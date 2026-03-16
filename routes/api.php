@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ClinicController;
 use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\AnimalController;
+use App\Http\Controllers\Api\VaccinationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,4 +63,10 @@ Route::middleware('auth:sanctum')->controller(BookingController::class)->group(f
 Route::middleware('auth:sanctum')->controller(AnimalController::class)->group(function () {
     Route::post('/enter-animal', 'enterAnimal');
     Route::get('/get-animals', 'getAnimals');
+});
+
+Route::middleware('auth:sanctum')->controller(VaccinationController::class)->group(function () {
+    Route::get('/get-available-vaccines/{animalId}', 'getAvailableVaccines');
+    Route::post('/take-vaccine/{animalId}/{vaccineId}', 'takeVaccine');
+    Route::get('/get-upcoming-vaccines/{animalId}', 'getUpcomingVaccines');
 });
