@@ -63,6 +63,7 @@ Route::middleware('auth:sanctum')->controller(BookingController::class)->group(f
 Route::middleware('auth:sanctum')->controller(AnimalController::class)->group(function () {
     Route::post('/enter-animal', 'enterAnimal');
     Route::get('/get-animals', 'getAnimals');
+    Route::post('/delete-animal/{id}', 'deleteAnimal');
 });
 
 Route::middleware('auth:sanctum')->controller(VaccinationController::class)->group(function () {
