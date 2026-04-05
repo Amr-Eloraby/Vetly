@@ -48,6 +48,7 @@ Route::middleware('auth:sanctum')->controller(CartController::class)->group(func
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/checkout', [OrderController::class, 'checkout']);
+    Route::get('/my-orders', [OrderController::class, 'getMyOrders']);
 });
 
 Route::controller(ClinicController::class)->group(function () {
@@ -69,5 +70,5 @@ Route::middleware('auth:sanctum')->controller(AnimalController::class)->group(fu
 Route::middleware('auth:sanctum')->controller(VaccinationController::class)->group(function () {
     Route::get('/get-available-vaccines/{animalId}', 'getAvailableVaccines');
     Route::post('/take-vaccine/{animalId}/{vaccineId}', 'takeVaccine');
-    Route::get('/get-upcoming-vaccines/{animalId}', 'getUpcomingVaccines');
+    Route::post('/make-as-done/{animalId}/{vaccineId}', 'makeAsDone');
 });

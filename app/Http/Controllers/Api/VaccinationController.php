@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\VaccinationService;
 use App\Http\Resources\VaccinationResource;
 use App\Http\Resources\VaccinatioRecordedResource;
+use Illuminate\Http\Request;
 
 class VaccinationController extends Controller
 {
@@ -19,19 +20,25 @@ class VaccinationController extends Controller
 
     public function getAvailableVaccines($animalId)
     {
-        $vaccinations = $this->vaccinationService->getAvailableVaccines($animalId);
-        return ApiResponse::sendResponse(200, 'Available vaccines', VaccinationResource::collection($vaccinations));
+        $vaccinations = $this->vaccinationService->generateSchedule($animalId);
+        return ApiResponse::sendResponse(200, 'Vaccination schedule', $vaccinations);
     }
 
-    public function takeVaccine($animalId, $vaccineId)
+    public function takeVaccine(Request $request, $animalId, $vaccineId)
     {
-        $vaccination = $this->vaccinationService->takeVaccine($animalId, $vaccineId);
+        $date = $request->validate([
+            'date' => 'required|date',
+        ]);
+        $vaccination = $this->vaccinationService->takeVaccine($animalId, $vaccineId, $date['date']);
         return ApiResponse::sendResponse($vaccination['status'], $vaccination['message'], $vaccination['data']);
     }
 
-    public function getUpcomingVaccines($animalId)
+    public function makeAsDone($animalId, $vaccineId, Request $request)
     {
-        $vaccinations = $this->vaccinationService->getUpcomingVaccines($animalId);
-        return ApiResponse::sendResponse(200, 'Upcoming vaccines', VaccinatioRecordedResource::collection($vaccinations));
+        $date = $request->validate([
+            'date' => 'required|date',
+        ]);
+        $vaccinations = $this->vaccinationService->makeAsDone($animalId, $vaccineId, $date['date']);
+        return ApiResponse::sendResponse(200, 'Vaccines updated successfully', $vaccinations);
     }
 }
