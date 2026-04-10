@@ -24,6 +24,12 @@ class VaccinationController extends Controller
         return ApiResponse::sendResponse(200, 'Vaccination schedule', $vaccinations);
     }
 
+    public function getUserAnimalsWithVaccines()
+    {
+        $vaccinations = $this->vaccinationService->getUserAnimalsWithVaccines();
+        return ApiResponse::sendResponse(200, 'Vaccination schedule', $vaccinations);
+    }
+
     public function takeVaccine(Request $request, $animalId, $vaccineId)
     {
         $date = $request->validate([

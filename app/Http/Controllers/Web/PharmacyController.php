@@ -7,6 +7,7 @@ use App\Models\Medicine;
 use App\Http\Requests\Web\PharmacyRequest;
 use App\Http\Requests\Web\UpdatePharmcyRequest;
 use App\Services\ImageService;
+use Illuminate\Http\Request;
 
 class PharmacyController extends Controller
 {
@@ -55,6 +56,13 @@ class PharmacyController extends Controller
     {
         $medicines = Medicine::all();
         return view('dashboard.pharmacy.show', compact('medicines'));
+    }
+
+    // Search pharmacy
+    public function search(Request $request)
+    {
+        $medicines = Medicine::where('name', 'like', '%' . $request->value . '%')->get();
+        return view('dashboard.pharmacy.search', compact('medicines'))->render();
     }
 
     // Delete pharmacy

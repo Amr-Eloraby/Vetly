@@ -14,7 +14,10 @@
               {{ session('success-delete') }}
           </div>
         @endif
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pharmacy /</span> Show All Medicines</h4>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pharmacy /</span> Show All Medicines</h4>
+            <input type="text" class="form-control" id="search" placeholder="Search" style="width: 200px;">
+        </div>
         @if(count($medicines)>0)
         <div class="row mb-5">
             @foreach ($medicines as $medicine)
@@ -43,3 +46,21 @@
     </div>
 <!-- / Content -->
 @endsection            
+
+@section('script-ajax-search')
+<script>
+    $(document).ready(function(){
+        $('#search').on('keyup', function(){
+            var value = $(this).val();
+            $.ajax({
+                url: "{{ route('pharmacy.search') }}",
+                type: "GET",
+                data: {value: value},
+                success: function(response){
+                    $('.row').html(response);
+                }
+            });
+        });
+    });
+</script>
+@endsection

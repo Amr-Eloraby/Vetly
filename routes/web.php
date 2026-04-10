@@ -30,6 +30,7 @@ Route::middleware('admin')->controller(PharmacyController::class)->group(functio
     Route::get('/dashboard/pharmacy/edit/{id}', 'edit')->name('pharmacy.edit');
     Route::PUT('/dashboard/pharmacy/update/{id}', 'update')->name('pharmacy.update');
     Route::get('/dashboard/pharmacy/show', 'show')->name('pharmacy.show');
+    Route::get('/dashboard/pharmacy/search', 'search')->name('pharmacy.search');
     Route::delete('/dashboard/pharmacy/delete/{id}', 'destroy')->name('pharmacy.delete');
 });
 

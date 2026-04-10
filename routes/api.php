@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\AnimalController;
 use App\Http\Controllers\Api\VaccinationController;
+use App\Http\Controllers\Api\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,4 +72,9 @@ Route::middleware('auth:sanctum')->controller(VaccinationController::class)->gro
     Route::get('/get-available-vaccines/{animalId}', 'getAvailableVaccines');
     Route::post('/take-vaccine/{animalId}/{vaccineId}', 'takeVaccine');
     Route::post('/make-as-done/{animalId}/{vaccineId}', 'makeAsDone');
+    Route::get('/get-user-animals-with-vaccines', 'getUserAnimalsWithVaccines');
+});
+
+Route::middleware('auth:sanctum')->controller(ChatController::class)->group(function () {
+    Route::post('/predict', 'predict');
 });
