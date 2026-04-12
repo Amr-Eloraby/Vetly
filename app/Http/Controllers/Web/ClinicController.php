@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\ClinicsRequest;
 use App\Models\Clinic;
 use App\Services\ImageService;
+use Illuminate\Http\Request;
 use App\Http\Requests\Web\UpdateClinicRequest;
 
 class ClinicController extends Controller
@@ -61,6 +62,16 @@ class ClinicController extends Controller
         $clinic->update($validatedData);
 
         return to_route('clinic.show')->with('success-update-clinics', 'Clinic updated successfully!');
+    }
+
+    // Search clinic
+    public function search(Request $request)
+    {
+        $search = $request->value;
+        $clinics = Clinic::where('name', 'like', '%'.$search.'%')
+        ->orWhere('phone', 'like', '%'.$search.'%')
+        ->get();
+        return view('dashboard.clinics.search', compact('clinics'));
     }
 
     // Delete clinic

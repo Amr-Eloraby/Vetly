@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\BookingController;
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\OrdersController;
 use App\Http\Controllers\Web\VaccinationController;
+use App\Http\Controllers\Web\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::middleware('admin')->controller(ClinicController::class)->group(function 
     Route::get('/dashboard/clinic/edit/{id}', 'edit')->name('clinic.edit');
     Route::PUT('/dashboard/clinic/update/{id}', 'update')->name('clinic.update');
     Route::get('/dashboard/clinic/show', 'show')->name('clinic.show');
+    Route::get('/dashboard/clinic/search', 'search')->name('clinic.search');
     Route::delete('/dashboard/clinic/delete/{id}', 'destroy')->name('clinic.delete');
 });
 
@@ -71,4 +73,9 @@ Route::middleware('admin')->controller(VaccinationController::class)->group(func
     Route::PUT('/dashboard/vaccination/update/{id}', 'updateVaccination')->name('vaccination.update');  
     Route::delete('/dashboard/vaccination/delete/{id}', 'deleteVaccination')->name('vaccination.delete');
 });    
+
+Route::middleware('admin')->controller(NotificationController::class)->group(function () {
+    Route::get('/dashboard/notifications', 'getNotifications')->name('notifications.get');
+    Route::post('/dashboard/notifications/read', 'markAsRead')->name('notifications.markAsRead');
+});
 

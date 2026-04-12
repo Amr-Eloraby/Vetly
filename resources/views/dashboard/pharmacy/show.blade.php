@@ -1,6 +1,15 @@
 @extends('dashboard.master')
 @section('title', 'Show Pharmacy')
 @section('Pharmacy', 'active')
+@section('search')
+    <div class="navbar-nav align-items-center">
+        <div class="nav-item d-flex align-items-center">
+            <i class="bx bx-search fs-4 lh-0"></i>
+            <input type="text" class="form-control border-0 shadow-none" id="search" placeholder="Search by name or phone"
+                aria-label="Search..." />
+        </div>
+    </div>
+@endsection
 @section('content')
 <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -16,7 +25,6 @@
         @endif
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pharmacy /</span> Show All Medicines</h4>
-            <input type="text" class="form-control" id="search" placeholder="Search" style="width: 200px;">
         </div>
         @if(count($medicines)>0)
         <div class="row mb-5">

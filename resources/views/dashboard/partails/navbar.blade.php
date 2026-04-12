@@ -8,21 +8,35 @@
 
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <!-- Search -->
-            <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                    <i class="bx bx-search fs-4 lh-0"></i>
-                    <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                        aria-label="Search..." />
-                </div>
-            </div>
+            @yield('search')
             <!-- /Search -->
 
             <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
-                <li class="nav-item lh-1 me-3">
-                    <a class="github-button" href="https://github.com/themeselection/sneat-html-admin-template-free"
-                        data-icon="octicon-star" data-size="large" data-show-count="true"
-                        aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link position-relative" href="#" id="notificationsDropdown" data-bs-toggle="dropdown">
+                        <i class="menu-icon tf-icons bx bx-bell" style="font-size: 22px;"></i>
+                        <span id="notif-count" 
+                            class="badge bg-danger"
+                            style="
+                                position: absolute;
+                                top: -2px;
+                                right: -2px;
+                                font-size: 10px;
+                                min-width: 16px;
+                                height: 16px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                padding: 0 4px;
+                            ">
+                        </span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end" style="width:300px;">
+                        <li class="text-center p-2" id="notif-list" style="max-height: 400px !important; width: 320px !important; overflow-y: auto !important; overflow-x: hidden;">No notifications</li>
+                    </ul>
                 </li>
 
                 <!-- User -->
@@ -35,7 +49,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar avatar-online">
@@ -54,35 +68,22 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="">
                                 <i class="bx bx-user me-2"></i>
                                 <span class="align-middle">My Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">
-                                <i class="bx bx-cog me-2"></i>
-                                <span class="align-middle">Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">
-                                <span class="d-flex align-items-center align-middle">
-                                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                    <span class="flex-grow-1 align-middle">Billing</span>
-                                    <span
-                                        class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                </span>
                             </a>
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="auth-login-basic.html">
-                                <i class="bx bx-power-off me-2"></i>
-                                <span class="align-middle">Log Out</span>
-                            </a>
+                            <form action="{{ route('dashboard.logout') }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="dropdown-item">
+                                    <i class="bx bx-power-off me-2"></i>
+                                    <span class="align-middle">Log Out</span>
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </li>
