@@ -15,6 +15,7 @@ View Details Orders #{{ $order->id }}
           <thead>
             <tr>
               <th>Item</th>
+              <th>order request</th>
               <th>medicine name</th>
               <th>Quantity</th>
               <th>Price</th>
@@ -26,6 +27,7 @@ View Details Orders #{{ $order->id }}
               @foreach ($orderItem as $item)
                 <tr>
                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $loop->index+1 }}</strong></td>
+                    <td>{{ $item->order->user->name }}</td>
                     <td>{{ $item->medicine->name }}</td>
                     <td>{{ $item->quantity }}</td>
                     <td>{{ $item->price }}</td>
