@@ -7,7 +7,6 @@ View Details Orders #{{ $order->id }}
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Orders /</span> Orders Details </h4>
-    <!-- Basic Bootstrap Table -->
     <div class="card">
       <h5 class="card-header">Orders Items</h5>
       <div class="table-responsive text-nowrap">
@@ -15,8 +14,8 @@ View Details Orders #{{ $order->id }}
           <thead>
             <tr>
               <th>Item</th>
-              <th>order request</th>
-              <th>medicine name</th>
+              <th>Order Request</th>
+              <th>Medicine Name</th>
               <th>Quantity</th>
               <th>Price</th>
               <th>Total</th>
@@ -26,8 +25,8 @@ View Details Orders #{{ $order->id }}
             @if ($orderItem->count() > 0)
               @foreach ($orderItem as $item)
                 <tr>
-                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $loop->index+1 }}</strong></td>
-                    <td>{{ $item->order->user->name }}</td>
+                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $item->id }}</strong></td>
+                    <td>{{ $order->user->name }}</td>
                     <td>{{ $item->medicine->name }}</td>
                     <td>{{ $item->quantity }}</td>
                     <td>{{ $item->price }}</td>
@@ -38,26 +37,23 @@ View Details Orders #{{ $order->id }}
           </tbody>
           <tfoot>
             <tr>
-                <td colspan="4" class="text-end fw-bold">Grand Total:</td>
-                <td class="fw-bold">
-                    {{ $order->total_price }}
-                </td>
+                <td colspan="5" class="text-end fw-bold">Grand Total:</td>
+                <td class="fw-bold">{{ $order->total_price }}</td>
             </tr>
           </tfoot>
         </table>
       </div>
     </div>
     @if($order->status == 'pending')
-            <div class="text-end mt-4">
-                <form action="{{ route('orders.confirm', $order->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-success">
-                        Confirm Order
-                    </button>
-                </form>
-            </div>
-        @endif
-    <!--/ Basic Bootstrap Table -->
+        <div class="text-end mt-4">
+            <form action="{{ route('orders.confirm', $order->id) }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-success">
+                    Confirm Order
+                </button>
+            </form>
+        </div>
+    @endif
     <hr class="my-5" />
 </div>
 <!-- / Content -->

@@ -24,7 +24,7 @@ class CartController extends Controller
     {
         $request->validated();
 
-        $cart = $this->cartService->addToCart(
+        $this->cartService->addToCart(
             auth()->id(),
             $request->medicine_id,
             $request->quantity

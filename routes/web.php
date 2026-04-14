@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\OrdersController;
 use App\Http\Controllers\Web\VaccinationController;
 use App\Http\Controllers\Web\NotificationController;
+use App\Http\Controllers\Web\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::middleware('admin')->controller(PharmacyController::class)->group(functio
     Route::PUT('/dashboard/pharmacy/update/{id}', 'update')->name('pharmacy.update');
     Route::get('/dashboard/pharmacy/show', 'show')->name('pharmacy.show');
     Route::get('/dashboard/pharmacy/search', 'search')->name('pharmacy.search');
+    Route::get('/dashboard/pharmacy/lowstock', 'getLowStock')->name('pharmacy.lowstock');
     Route::delete('/dashboard/pharmacy/delete/{id}', 'destroy')->name('pharmacy.delete');
 });
 
@@ -79,3 +81,7 @@ Route::middleware('admin')->controller(NotificationController::class)->group(fun
     Route::post('/dashboard/notifications/read', 'markAsRead')->name('notifications.markAsRead');
 });
 
+Route::middleware('admin')->controller(ProfileController::class)->group(function () {
+    Route::get('/dashboard/profile', 'edit')->name('profile.edit');
+    Route::put('/dashboard/profile/update', 'update')->name('profile.update');
+});

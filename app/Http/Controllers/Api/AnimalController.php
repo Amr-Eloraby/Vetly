@@ -15,7 +15,7 @@ class AnimalController extends Controller
     public function enterAnimal(AnimalRequest $request)
     {
         $validatedData = $request->validated();
-        $validatedData['user_id'] = $request->user()->id; // Associate the animal with the authenticated user   
+        $validatedData['user_id'] = $request->user()->id;  
         $animal = Animal::create($validatedData);
 
         return ApiResponse::sendResponse(201, 'Animal entered successfully', new AnimalResource($animal));

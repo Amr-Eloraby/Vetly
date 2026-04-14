@@ -24,7 +24,7 @@ class EditProfileRequest extends FormRequest
         return [
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email|unique:users,email,' . $this->user()->id,
-            'phone' => 'sometimes|string|max:20|unique:users,phone,' . $this->user()->id,
+            'phone' => 'sometimes|string|regex:/^01(0|1|2|5)[0-9]{8}$/|max:20|unique:users,phone,' . $this->user()->id,
             'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
             'password' => 'sometimes|string|min:8|confirmed',
         ];

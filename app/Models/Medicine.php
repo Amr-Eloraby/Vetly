@@ -17,13 +17,11 @@ class Medicine extends Model
         'stock',
     ];
 
-    // المنتج موجود في كام cart
     public function cartItems()
     {
         return $this->hasMany(CartItem::class);
     }
 
-    // المنتج موجود في كام order
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);

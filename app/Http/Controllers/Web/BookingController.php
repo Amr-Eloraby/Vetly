@@ -9,7 +9,7 @@ class BookingController extends Controller
 {
     public function index()
     {
-        $bookings = Booking::paginate(15);
+        $bookings = Booking::paginate(10);
         return view('dashboard.booking.booking', compact('bookings'));
     }
 

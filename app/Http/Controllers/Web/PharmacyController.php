@@ -65,6 +65,12 @@ class PharmacyController extends Controller
         return view('dashboard.pharmacy.search', compact('medicines'))->render();
     }
 
+    public function getLowStock()
+    {
+        $lowStocks = Medicine::where('stock', '<', 10)->get();
+        return view('dashboard.pharmacy.lowstock', compact('lowStocks'));
+    }
+
     // Delete pharmacy
     public function destroy($id)
     {

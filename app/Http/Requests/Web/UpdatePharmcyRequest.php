@@ -25,6 +25,7 @@ class UpdatePharmcyRequest extends FormRequest
             'name' => ['string','max:255'],
             'description' => ['string','max:255'],
             'price' => ['numeric'],
+            'stock' => ['integer'],
             'image' => ['image','mimes:jpeg,png,jpg,gif','max:2048'],
         ];
     }
