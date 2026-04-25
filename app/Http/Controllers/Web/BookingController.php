@@ -7,12 +7,15 @@ use App\Models\Booking;
 
 class BookingController extends Controller
 {
+
+    // get all bookings
     public function index()
     {
         $bookings = Booking::paginate(10);
         return view('dashboard.booking.booking', compact('bookings'));
     }
 
+    // update status to confirmed
     public function confirm($id)
     {
         $booking = Booking::findOrFail($id);
@@ -22,6 +25,7 @@ class BookingController extends Controller
         return redirect()->route('booking.index');
     }
 
+    // update status to cancelled
     public function cancel($id)
     {
         $booking = Booking::findOrFail($id);

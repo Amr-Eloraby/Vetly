@@ -20,6 +20,7 @@ class CartController extends Controller
         $this->cartService = $cartService;
     }
 
+    // add medicine to cart
     public function add(CartRequest $request)
     {
         $request->validated();
@@ -33,6 +34,7 @@ class CartController extends Controller
         return ApiResponse::sendResponse(200,'Medicine has been successfully added to cart', null);
     }
 
+    // change cart item quantity
     public function changeQuantity(Request $request)
     {
         $request->validate([
@@ -59,14 +61,14 @@ class CartController extends Controller
         return ApiResponse::sendResponse(200,'Cart item quantity has been successfully updated', $quantity);
     }
 
-
+    // view cart
     public function view()
     {
         $cart = $this->cartService->viewCart(auth()->id());
         return ApiResponse::sendResponse(200,'Cart retrieved successfully', new CartResource($cart));
     }
 
-
+    // remove cart item
     public function remove(Request $request)
     {
         $request->validate([
@@ -81,7 +83,7 @@ class CartController extends Controller
         return ApiResponse::sendResponse(200,'Product has been successfully removed from cart', null);
     }
 
-
+    // clear cart
     public function clear()
     {
         $this->cartService->clearCart(auth()->id());

@@ -8,12 +8,14 @@ use App\Models\OrderItem;
 
 class OrdersController extends Controller
 {
+    // orders
     public function index()
     {
         $orders = Order::all();
         return view('dashboard.orders.show', compact('orders'));
     }
 
+    // order details
     public function viewDetails($id)
     {
         $order = Order::findOrFail($id);
@@ -21,6 +23,7 @@ class OrdersController extends Controller
         return view('dashboard.orders.viewdetails', compact('orderItem', 'order'));
     }
 
+    // confirm order
     public function confirmOrder($id)
     {
         $order = Order::findOrFail($id);
@@ -30,6 +33,7 @@ class OrdersController extends Controller
         return redirect()->route('orders.index');
     }
 
+    // ship order
     public function shipOrder($id)
     {
         $order = Order::findOrFail($id);

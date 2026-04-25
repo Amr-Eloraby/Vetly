@@ -9,11 +9,14 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class VaccinationService {
+
+    // get animal age in weeks
     public function getAnimalAgeWeeks($birthDate)
     {
         return Carbon::parse($birthDate)->diffInWeeks(now());
     }
 
+    // generate vaccination schedule
     public function generateSchedule($animalId)
     {
         $user = Auth::user();
@@ -69,6 +72,7 @@ class VaccinationService {
         })->values();
     }
 
+    // get user animals
     public function getUserAnimalsWithVaccines()
     {
         $user = Auth::user();
@@ -137,6 +141,7 @@ class VaccinationService {
         return $data;
     }
     
+    // take vaccine
     public function takeVaccine($animalId, $vaccineId, $date)
     {
         $user = Auth::user();
@@ -188,6 +193,7 @@ class VaccinationService {
         ];
     }
 
+    // make as done
     public function makeAsDone($animalId, $vaccineId , $date)
     {
         $user = Auth::user();

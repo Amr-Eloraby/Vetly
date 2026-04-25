@@ -8,6 +8,8 @@ use App\Models\User;
 
 class ProfileController extends Controller
 {
+
+    // Edit profile
     public function edit()
     {
         return view('dashboard.profile.profile');

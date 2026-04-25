@@ -19,6 +19,7 @@ class OrderController extends Controller
         $this->orderService = $orderService;
     }
 
+    // checkout
     public function checkout()
     {
         $order = $this->orderService->checkout(auth()->user());

@@ -18,18 +18,21 @@ class VaccinationController extends Controller
         $this->vaccinationService = $vaccinationService;
     }
 
+    // get available vaccines
     public function getAvailableVaccines($animalId)
     {
         $vaccinations = $this->vaccinationService->generateSchedule($animalId);
         return ApiResponse::sendResponse(200, 'Vaccination schedule', $vaccinations);
     }
 
+    // get user animals
     public function getUserAnimalsWithVaccines()
     {
         $vaccinations = $this->vaccinationService->getUserAnimalsWithVaccines();
         return ApiResponse::sendResponse(200, 'Vaccination schedule', $vaccinations);
     }
 
+    // take vaccine
     public function takeVaccine(Request $request, $animalId, $vaccineId)
     {
         $date = $request->validate([
@@ -39,6 +42,7 @@ class VaccinationController extends Controller
         return ApiResponse::sendResponse($vaccination['status'], $vaccination['message'], $vaccination['data']);
     }
 
+    // make as done
     public function makeAsDone($animalId, $vaccineId, Request $request)
     {
         $date = $request->validate([

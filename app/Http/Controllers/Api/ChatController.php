@@ -10,6 +10,7 @@ use App\Models\Message;
 
 class ChatController extends Controller
 {
+    // predict ai 
     public function predict(Request $request)
     {
         $request->validate([
@@ -62,8 +63,9 @@ class ChatController extends Controller
                 'animal'=>$request->animal,
                 'description' => $request->description
             ]);
-            $aiText = 'Prediction: ' . $response['prediction'] . '\n' . 'Treatment: ' . $response['treatment'];
-
+            $aiText = "Prediction: " . $response['prediction'] . " " . 
+                    "Attention: " . $response['attention'] . " " . 
+                    "Treatment: " . $response['treatment'];
         if (!$response->successful()) {
             return response()->json([
                 'error' => $response->body()

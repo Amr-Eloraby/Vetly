@@ -9,11 +9,13 @@ use App\Http\Requests\VaccinationRequest;
 
 class VaccinationController extends Controller
 {
+    // Vaccination
     public function createVaccination()
     {
         return view('dashboard.vaccination.create');
     }
-
+    
+    // store Vaccination
     public function storeNewVaccination(VaccinationRequest $request)
     {
         $validatedData = $request->validated();
@@ -23,18 +25,20 @@ class VaccinationController extends Controller
         return redirect()->route('vaccination.create')->with('success-create-new-vaccination', 'Vaccination created successfully!');
     }
 
+    // show Vaccination
     public function showVaccination()
     {
         $vaccinations = Vaccination::paginate(15);
         return view('dashboard.vaccination.show', compact('vaccinations'));
     }
-
+    // edit Vaccination
     public function editVaccination($id)
     {
         $vaccination = Vaccination::findOrFail($id);
         return view('dashboard.vaccination.edit', compact('vaccination'));
     }
 
+    // update Vaccination
     public function updateVaccination(VaccinationRequest $request, $id)
     {
         $vaccination = Vaccination::findOrFail($id);
@@ -43,6 +47,7 @@ class VaccinationController extends Controller
         return redirect()->route('vaccination.show')->with('success-update-vaccination', 'Vaccination updated successfully!');
     }
 
+    // delete Vaccination
     public function deleteVaccination($id)
     {
         $vaccination = Vaccination::findOrFail($id);
