@@ -63,9 +63,16 @@ class ChatController extends Controller
                 'animal'=>$request->animal,
                 'description' => $request->description
             ]);
-            $aiText = "Prediction: " . $response['prediction'] . " " . 
-                    "Attention: " . $response['attention'] . " " . 
-                    "Treatment: " . $response['treatment'];
+            if ($response['prediction'] && $response['attention'] && $response['treatment']) {
+                $aiText = "Prediction: " . $response['prediction'] . " " . 
+                        "Attention: " . $response['attention'] . " " . 
+                        "Treatment: " . $response['treatment'];
+            }elseif($response['prediction'] && $response['treatment']){
+                $aiText = "Prediction: " . $response['prediction'] . " " . 
+                        "treatment: " . $response['treatment'];
+            } elseif (!$response['attention'] && !$response['prediction']) {
+                $aiText = "Attention: " . $response['treatment'];
+            }
         if (!$response->successful()) {
             return response()->json([
                 'error' => $response->body()
