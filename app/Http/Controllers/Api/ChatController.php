@@ -59,7 +59,7 @@ class ChatController extends Controller
                 'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
                 'Content-Type' => 'application/json',
             ])
-            ->post('https://vetly-ai-production.up.railway.app/predict', [
+            ->post('https://vetly-ai.up.railway.app/predict', [
                 'animal'=>$request->animal,
                 'description' => $request->description
             ]);

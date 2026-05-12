@@ -1,16 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AnimalController;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Auth\ForgotPasswordController;
+use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\ChatController;
+use App\Http\Controllers\Api\ClinicController;
 use App\Http\Controllers\Api\MedicienController;
 use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\Api\ClinicController;
-use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Api\AnimalController;
 use App\Http\Controllers\Api\VaccinationController;
-use App\Http\Controllers\Api\ChatController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,4 +78,11 @@ Route::middleware('auth:sanctum')->controller(VaccinationController::class)->gro
 
 Route::middleware('auth:sanctum')->controller(ChatController::class)->group(function () {
     Route::post('/predict', 'predict');
+});
+
+
+Route::controller(ForgotPasswordController::class)->group(function () {
+    Route::post('/send-otp', 'sendOtp');
+    Route::post('/verify-otp', 'verifyOtp');
+    Route::post('/reset-password', 'resetPassword');
 });

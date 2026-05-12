@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email','ends_with:@vetly.com' ,'max:255', 'unique:' . User::class],
+            'email' => ['required', 'email','ends_with:@gmail.com' ,'max:255', 'unique:' . User::class],
             'phone' => ['required', 'regex:/^01(0|1|2|5)[0-9]{8}$/', 'unique:' . User::class],
             'password' => ['required','regex:/^(?=.*[A-Za-z@#$%^&*!]).{8,}$/' ,'confirmed', Rules\Password::defaults()],
         ];
@@ -37,7 +37,7 @@ class RegisterRequest extends FormRequest
             'name.required' => 'Name is required.',
             'email.required' => 'Email is required.',
             'email.email' => 'Email must be a valid email address.',
-            'email.ends_with' => 'Email must end with @vetly.com.',
+            'email.ends_with' => 'Email must end with @gmail.com.',
             'email.max' => 'Email must not exceed 255 characters.',
             'email.unique' => 'Email has already been taken.',
             'phone.required' => 'Phone number is required.',

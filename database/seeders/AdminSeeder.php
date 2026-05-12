@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
     {
         {
             User::updateOrCreate(
-                ['email' => 'amrramadan22004@vetly.com'], 
+                ['email' => 'adminvetly@gmail.com'], 
                 [
                     'name' => 'Amr Eloraby',
                     'phone' => '01097896081',
