@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Mail\SendOtpMail;
 use App\Models\User;
@@ -22,9 +23,7 @@ class ForgotPasswordController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            return response()->json([
-                'message' => 'User not found'
-            ], 404);
+            return ApiResponse::sendResponse(404, 'User not found', null);
         }
 
         $otp = rand(100000, 999999);
@@ -35,7 +34,7 @@ class ForgotPasswordController extends Controller
                 [
                     'otp' => Hash::make($otp),
                     'verified' => false,
-                    'expires_at' => Carbon::now()->addMinutes(10),
+                    'expires_at' => Carbon::now()->addMinutes(1),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]
@@ -43,9 +42,7 @@ class ForgotPasswordController extends Controller
 
         Mail::to($request->email)->send(new SendOtpMail($otp));
 
-        return response()->json([
-            'message' => 'OTP sent successfully'
-        ]);
+        return ApiResponse::sendResponse(200, 'OTP sent to email', null);
     }
 
     public function verifyOtp(Request $request)
@@ -60,9 +57,7 @@ class ForgotPasswordController extends Controller
             ->first();
 
         if (!$record) {
-            return response()->json([
-                'message' => 'OTP not found'
-            ], 400);
+            return ApiResponse::sendResponse(404, 'OTP not found', null);
         }
 
         if (Carbon::now()->gt($record->expires_at)) {
@@ -71,16 +66,12 @@ class ForgotPasswordController extends Controller
                 ->where('email', $request->email)
                 ->delete();
 
-            return response()->json([
-                'message' => 'OTP expired'
-            ], 400);
+            return ApiResponse::sendResponse(400, 'OTP expired', null);
         }
 
         if (!Hash::check($request->otp, $record->otp)) {
 
-            return response()->json([
-                'message' => 'Invalid OTP'
-            ], 400);
+            return ApiResponse::sendResponse(400, 'Invalid OTP', null);
         }
 
         DB::table('password_reset_tokens')
@@ -89,9 +80,7 @@ class ForgotPasswordController extends Controller
                 'verified' => true
             ]);
 
-        return response()->json([
-            'message' => 'OTP verified'
-        ]);
+        return ApiResponse::sendResponse(200, 'OTP verified', null);
     }
 
     public function resetPassword(Request $request)
@@ -107,9 +96,7 @@ class ForgotPasswordController extends Controller
             ->first();
 
         if (!$record) {
-            return response()->json([
-                'message' => 'OTP verification required'
-            ], 400);
+            return ApiResponse::sendResponse(404, 'OTP not verified', null);
         }
 
         if (Carbon::now()->gt($record->expires_at)) {
@@ -118,9 +105,7 @@ class ForgotPasswordController extends Controller
                 ->where('email', $request->email)
                 ->delete();
 
-            return response()->json([
-                'message' => 'OTP expired'
-            ], 400);
+            return ApiResponse::sendResponse(400, 'OTP expired', null);
         }
 
         $user = User::where('email', $request->email)->first();
@@ -133,8 +118,6 @@ class ForgotPasswordController extends Controller
             ->where('email', $request->email)
             ->delete();
 
-        return response()->json([
-            'message' => 'Password reset successful'
-        ]);
+        return ApiResponse::sendResponse(200, 'Password reset successful', null);
     }
 }
